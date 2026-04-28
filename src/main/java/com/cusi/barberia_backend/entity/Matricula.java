@@ -35,12 +35,11 @@ public class Matricula {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private MatriculaEstado estado=MatriculaEstado.PENDIENTE;
-    @JoinColumn(name="fecha_matricula",nullable = false,updatable = false)
+    @Column(name="fecha_matricula",nullable = false,updatable = false)
     private LocalDateTime fechaMatricula;
     private String comentario;
 
-
-
+    @PrePersist
     public void prePersist(){
         this.fechaMatricula=LocalDateTime.now();
 

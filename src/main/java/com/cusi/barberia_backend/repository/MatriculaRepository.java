@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface MatriculaRepository extends JpaRepository<Matricula,Long> {
-    Optional<Matricula> findTopByEstudianteDniOrderByCreatedAtDesc (String dni);
+    Optional<Matricula> findTopByEstudianteDniOrderByFechaMatriculaDesc (String dni);
     List<Matricula> findByEstudianteDni(String dni);
     long countByHorarioIdAndEstado(Long horarioId,Matricula.MatriculaEstado estado);
 

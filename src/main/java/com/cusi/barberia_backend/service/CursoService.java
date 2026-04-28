@@ -112,7 +112,7 @@ public class CursoService {
                 .orElseThrow(() -> new RuntimeException("Horario no encontrado"));
 
         // Previene borrar un horario que ya tiene matrículas
-        boolean hasEnrollments = !schedule.getEnrollments().isEmpty();
+        boolean hasEnrollments = !schedule.getMatriculas().isEmpty();
         if (hasEnrollments) {
             throw new RuntimeException("No se puede eliminar un horario con matrículas registradas");
         }

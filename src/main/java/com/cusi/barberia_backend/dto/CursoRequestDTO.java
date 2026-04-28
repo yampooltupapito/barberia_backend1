@@ -6,10 +6,10 @@ import lombok.Setter;
 @Getter
 @Setter
 public class CursoRequestDTO {
-    private String nombre;
-    private String descripcion;
-    private String categoria;      // "GENERAL" o "ESPECIALIDAD"
-    private String requerimiento;
-    private Double costoCurso;
-    private Boolean isActive;
+    public String nombre;
+    public String descripcion;
+    public String categoria;      // "GENERAL" o "ESPECIALIDAD"
+    public String requerimiento;
+    public Double costoCurso;
+    public Boolean isActive;
 }

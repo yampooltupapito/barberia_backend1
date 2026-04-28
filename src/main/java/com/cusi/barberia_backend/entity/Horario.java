@@ -31,6 +31,4 @@ public class Horario {
     @OneToMany(mappedBy = "horario",cascade = CascadeType.ALL,fetch =FetchType.LAZY)
     private List<Matricula>matriculas;//llama ala clase
 
-
-
 }

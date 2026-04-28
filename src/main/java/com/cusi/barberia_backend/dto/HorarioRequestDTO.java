@@ -7,9 +7,9 @@ import java.time.LocalTime;
 @Getter
 @Setter
 public class HorarioRequestDTO {
-    private String dias;
-    private LocalTime tiempoInicio;
-    private LocalTime tiempoFinal;
-    private Integer cupos;
+    public String dias;
+    public LocalTime tiempoInicio;
+    public LocalTime tiempoFinal;
+    public Integer cupos;
 }
 

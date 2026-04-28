@@ -9,13 +9,13 @@ import java.util.List;
 @Getter
 @Setter
 public class CursoResponseDTO {
-    private Long id;
-    private String nombre;
-    private String descripcion;
-    private String categoria;
-    private String requirimientos;
-    private Double precioCurso;
-    private List<HorarioResponseDTO> horarios;
+    public Long id;
+    public String nombre;
+    public String descripcion;
+    public String categoria;
+    public String requirimientos;
+    public Double precioCurso;
+    public List<HorarioResponseDTO> horarios;
 
 
 }

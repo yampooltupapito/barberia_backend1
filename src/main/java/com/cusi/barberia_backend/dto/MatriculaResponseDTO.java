@@ -8,17 +8,17 @@ import java.time.LocalTime;
 @Getter
 @Setter
 public class MatriculaResponseDTO {
-    private Long id;
-    private String estado;
-    private String comentario;
-    private LocalDateTime fechaMatricula;
-    private Double montoPago;
-    private String nombreCompleto;
-    private String estudianteDni;
-    private String nombreCurso;
-    private String horarioDias;
-    private LocalTime fechaInicio;
-    private LocalTime fechaFin;
+    public Long id;
+    public String estado;
+    public String comentario;
+    public LocalDateTime fechaMatricula;
+    public Double montoPago;
+    public String nombreCompleto;
+    public String estudianteDni;
+    public String nombreCurso;
+    public String horarioDias;
+    public LocalTime fechaInicio;
+    public LocalTime fechaFin;
 
 
 

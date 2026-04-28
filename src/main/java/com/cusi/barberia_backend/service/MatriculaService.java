@@ -64,7 +64,7 @@ public class MatriculaService {
     // Flujo público: consulta por DNI
     public MatriculaResponseDTO getEnrollmentByDni(String dni) {
         Matricula enrollment = enrollmentRepository
-                .findTopByEstudianteDniOrderByCreatedAtDesc(dni)
+                .findTopByEstudianteDniOrderByFechaMatriculaDesc(dni)
                 .orElseThrow(() -> new RuntimeException("No se encontró una inscripción para ese DNI"));
         return mapToResponseDTO(enrollment);
     }

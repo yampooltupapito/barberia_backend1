@@ -10,11 +10,11 @@ import java.time.LocalTime;
 @Setter
 public class HorarioResponseDTO {
 
-    private Long id;
-    private String dias;
-    private Curso curso;
-    private LocalTime tiempoInicio;
-    private LocalTime tiempoFinal;
-    private Integer cupos;
-    private Integer plazasDisponibles;
+    public Long id;
+    public String dias;
+    public Curso curso;
+    public LocalTime tiempoInicio;
+    public LocalTime tiempoFinal;
+    public Integer cupos;
+    public Integer plazasDisponibles;
 }
