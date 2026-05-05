@@ -18,3 +18,6 @@ public class HorarioResponseDTO {
     public Integer cupos;
     public Integer plazasDisponibles;
 }
+
+
+

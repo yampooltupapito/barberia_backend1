@@ -20,6 +20,4 @@ public class MatriculaResponseDTO {
     public LocalTime fechaInicio;
     public LocalTime fechaFin;
 
-
-
 }
