@@ -32,10 +32,6 @@ public class Curso {
     @OneToMany(mappedBy = "curso",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     private List<Horario>horario;
 
-
-
-
-
     public enum Categoria{
         GENERAL ,ESPECIALIDAD
     }

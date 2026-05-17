@@ -16,18 +16,19 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
-
+// Servicio para gestionar las matrículas, incluyendo creación, consulta y actualización de estado
 @RequiredArgsConstructor
 @Service
 public class MatriculaService {
+    // Repositorios para acceder a los datos de matrículas, estudiantes y horarios
     private final MatriculaRepository enrollmentRepository;
     private final EstudianteRepository studentRepository;
     private final HorarioRepository scheduleRepository;
-
+    // Registra una nueva matrícula a partir de la solicitud del estudiante, validando datos y disponibilidad de cupos
     // Flujo público: estudiante envía su inscripción
     @Transactional
     public MatriculaResponseDTO createEnrollment(MatriculaRequestDTO request) {
-
+         // Busca o crea al estudiante según su DNI, para evitar duplicados y reutilizar información existente
         // Si el estudiante ya existe por DNI lo reutiliza, si no lo crea
         Estudiante student = studentRepository.findByDni(request.getDni())
                 .orElseGet(() -> {
@@ -39,10 +40,11 @@ public class MatriculaService {
                     newStudent.setCorreo(request.getCorreo());
                     return studentRepository.save(newStudent);
                 });
-
+          // Busca el horario seleccionado por el estudiante, para asociarlo a la matrícula y validar su existencia
         Horario schedule = scheduleRepository.findById(request.getHorarioId())
                 .orElseThrow(() -> new RuntimeException("Horario no encontrado"));
 
+        // Verifica que el estudiante no tenga una matrícula aprobada para el mismo curso, evitando inscripciones duplicadas en el mismo curso
         // Validar que haya cupos disponibles
         long occupied = enrollmentRepository
                 .countByHorarioIdAndEstado(schedule.getId(), Matricula.MatriculaEstado.APROBADO);
@@ -61,6 +63,7 @@ public class MatriculaService {
         return mapToResponseDTO(enrollment);
     }
 
+    // Consulta la matrícula más reciente de un estudiante por su DNI, para mostrarle el estado de su inscripción
     // Flujo público: consulta por DNI
     public MatriculaResponseDTO getEnrollmentByDni(String dni) {
         Matricula enrollment = enrollmentRepository
@@ -68,7 +71,7 @@ public class MatriculaService {
                 .orElseThrow(() -> new RuntimeException("No se encontró una inscripción para ese DNI"));
         return mapToResponseDTO(enrollment);
     }
-
+    // Lista todas las matriculas registradas
     // Admin: ver todas las matrículas
     public List<MatriculaResponseDTO> getAllEnrollments() {
         return enrollmentRepository.findAll()
@@ -77,6 +80,8 @@ public class MatriculaService {
                 .collect(Collectors.toList());
     }
 
+    // Actualiza el estado de una matrícula (APROBADO o RECHAZADO) y añade un comentario opcional,
+    // para que el admin pueda gestionar las inscripciones
     // Admin: aprobar o rechazar
     @Transactional
     public MatriculaResponseDTO updateEnrollmentStatus(Long id, MatriculaEstadoUpdateDTO request) {
@@ -89,7 +94,9 @@ public class MatriculaService {
         enrollmentRepository.save(enrollment);
         return mapToResponseDTO(enrollment);
     }
-
+    // Convierte una entidad Matricula a un DTO de respuesta,
+    // incluyendo información del estudiante y del horario asociado para mostrar detalles
+    // completos en las respuestas de la API
     private MatriculaResponseDTO mapToResponseDTO(Matricula enrollment) {
         MatriculaResponseDTO dto = new MatriculaResponseDTO();
         dto.setId(enrollment.getId());

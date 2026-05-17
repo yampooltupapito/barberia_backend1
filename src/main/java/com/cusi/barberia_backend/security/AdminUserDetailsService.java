@@ -1,5 +1,4 @@
 package com.cusi.barberia_backend.security;
-
 import com.cusi.barberia_backend.entity.Admin;
 import com.cusi.barberia_backend.repository.AdminRepository;
 import lombok.RequiredArgsConstructor;
@@ -9,15 +8,13 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
-
 @Service
 @RequiredArgsConstructor
 public class AdminUserDetailsService implements UserDetailsService {
-
+    // Repositorio usado para buscar administradores en la base de datos
     private final AdminRepository adminRepository;
-
+    // Carga los datos del usuario (administrador) por su nombre de usuario para autenticación
     @Override
     public UserDetails loadUserByUsername(String nombreUsuario) throws UsernameNotFoundException {
         Admin admin = adminRepository.findByNombreUsuario(nombreUsuario)

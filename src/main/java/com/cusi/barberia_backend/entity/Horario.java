@@ -1,13 +1,10 @@
 package com.cusi.barberia_backend.entity;
-
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
 import java.time.LocalTime;
 import java.util.List;
-
 @Entity
 @Table(name="horarios")
 @NoArgsConstructor //crea un constructor sin parametros pero no visual
@@ -30,5 +27,4 @@ public class Horario {
     //matriculas
     @OneToMany(mappedBy = "horario",cascade = CascadeType.ALL,fetch =FetchType.LAZY)
     private List<Matricula>matriculas;//llama ala clase
-
 }

@@ -22,17 +22,19 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class CursoService {
     //la primera inyeccion de dependencias
+    // Repositorios para acceder a los datos de cursos, horarios y matrículas
     private final CursoRepository cursoRepository;
     private final HorarioRepository horarioRepository;
     private final MatriculaRepository matriculaRepository;
 
-
+    // Obtiene solo los cursos activos
     public List<CursoResponseDTO>getCursosActivos(){
         return cursoRepository.findByIsActiveTrue()
                 .stream()
                 .map(this::mapToCursoResponseDTO)
                 .collect(Collectors.toList());
     }
+    // Obtiene todos los cursos registrados
     public List<CursoResponseDTO>getCuros(){
         return cursoRepository.findAll()
                 .stream()
@@ -40,6 +42,7 @@ public class CursoService {
                 .collect(Collectors.toList());
 
     }
+    // Crea un nuevo curso
     @Transactional
     public CursoResponseDTO createCourse(CursoRequestDTO request) {
         Curso course = new Curso();
@@ -51,7 +54,7 @@ public class CursoService {
         course.setIsActive(true);
         return mapToCursoResponseDTO(cursoRepository.save(course));
     }
-
+    // Actualiza los datos de un curso existente (nombre, descripción, precio, estado activo)
     @Transactional
     public CursoResponseDTO updateCourse(Long id, CursoRequestDTO request) {
         Curso course = cursoRepository.findById(id)
@@ -66,7 +69,7 @@ public class CursoService {
 
         return mapToCursoResponseDTO(cursoRepository.save(course));
     }
-
+    // Desactiva un curso sin eliminarlo de la base de datos (soft delete)
     // Soft delete: no borra de la BD, solo lo oculta
     @Transactional
     public void deactivateCourse(Long id) {
@@ -75,7 +78,7 @@ public class CursoService {
         course.setIsActive(false);
         cursoRepository.save(course);
     }
-
+     // Crea un horario para un curso específico
     // ── HORARIOS ─────────────────────────────────────────
 
     @Transactional
@@ -92,7 +95,7 @@ public class CursoService {
 
         return mapToHorarioResponseDTO(horarioRepository.save(schedule));
     }
-
+    // Actualiza un horario existente
     @Transactional
     public HorarioResponseDTO updateSchedule(Long scheduleId, HorarioRequestDTO request) {
         Horario schedule = horarioRepository.findById(scheduleId)
@@ -105,7 +108,7 @@ public class CursoService {
 
         return mapToHorarioResponseDTO(horarioRepository.save(schedule));
     }
-
+    // Elimina un horario solo si no tiene matrículas registradas para evitar inconsistencias en la base de datos
     @Transactional
     public void deleteSchedule(Long scheduleId) {
         Horario schedule = horarioRepository.findById(scheduleId)
@@ -120,14 +123,7 @@ public class CursoService {
         horarioRepository.delete(schedule);
     }
 
-
-
-
-
-
-
-
-
+    // Convierte una entidad Curso a un DTO de respuesta, incluyendo sus horarios asociados
     public CursoResponseDTO mapToCursoResponseDTO(Curso curso){
         CursoResponseDTO dto =new CursoResponseDTO();
         dto.setId(curso.getId());
@@ -144,6 +140,7 @@ public class CursoService {
         return dto;
 
     }
+    // Convierte una entidad Horario a un DTO de respuesta, calculando las plazas disponibles restando las matrículas aprobadas del total de cupos
     private HorarioResponseDTO mapToHorarioResponseDTO(Horario horario){
         HorarioResponseDTO dto =new HorarioResponseDTO();
         dto.setId(horario.getId());
