@@ -16,6 +16,7 @@ import java.util.List;
 @RequestMapping("/api/matriculas")//ruta para ir a matricula
 @RequiredArgsConstructor
 public class MatriculaController {
+
     private final MatriculaService matriculaService;
     //para devolver un mensaje
     @PostMapping
@@ -44,10 +45,5 @@ public class MatriculaController {
         return ResponseEntity.ok(matriculaService.updateEnrollmentStatus(id,request));
     }
     //eliminar matricula
-
-
-
-
-
 
 }

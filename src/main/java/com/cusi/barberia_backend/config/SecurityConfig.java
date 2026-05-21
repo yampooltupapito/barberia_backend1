@@ -1,5 +1,4 @@
 package com.cusi.barberia_backend.config;
-
 import com.cusi.barberia_backend.security.AdminUserDetailsService;
 import com.cusi.barberia_backend.security.JwtAuthFilter;
 import lombok.RequiredArgsConstructor;
@@ -21,8 +20,8 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-
 import java.util.List;
+
 
 /**
  * Configuración de Spring Security 7.

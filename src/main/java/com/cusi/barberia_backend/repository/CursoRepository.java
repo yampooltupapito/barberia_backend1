@@ -8,6 +8,6 @@ import java.util.List;
 
 // Repositorio para acceder y gestionar los cursos en la base de datos
 public interface CursoRepository extends JpaRepository<Curso,Long> {
-   //busca todoss los cursos qu estan activos
+   //busca todoss los cursos que estan activos
     List<Curso> findByIsActiveTrue();
 }

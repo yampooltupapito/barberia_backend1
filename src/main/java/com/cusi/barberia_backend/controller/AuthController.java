@@ -22,7 +22,6 @@ public class AuthController {
 
     @Value("${app.jwt.expiration-ms}")
     private long expirationMs;
-
     /**
      * POST /api/auth/login
      * Body: { "nombreUsuario": "admin", "contrasena": "1234" }
